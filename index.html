@@ -3,98 +3,977 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fichero Carmeliano</title>
+<title>Fichero Carmelitano</title>
+
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#17324d}
-header{background:linear-gradient(135deg,#123c69,#1976a8);color:white;text-align:center;padding:35px 18px}
-header h1{margin:0;font-size:42px}header p{margin:10px 0 0;font-size:18px}
-.container{max-width:1050px;margin:auto;padding:25px 18px}
-.screen{display:none}.screen.active{display:block}
-h2{text-align:center;margin:10px 0 25px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:15px}
-.card,button{border:0;border-radius:16px;background:white;box-shadow:0 5px 18px #17324d18;padding:20px;text-align:center;cursor:pointer;color:#17324d;font-size:16px;font-weight:bold}
-.card:hover,button:hover{transform:translateY(-2px);box-shadow:0 8px 22px #17324d25}
-.grade{background:#e7f4fb;border:2px solid #8dcbe7}.course{min-height:100px}
-.back{background:#17324d;color:white;margin-bottom:20px}
-.tabs{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:20px 0}
-.tabs button{padding:12px 18px}.tabs .selected{background:#1976a8;color:white}
-.content{background:white;border-radius:18px;padding:25px;box-shadow:0 5px 18px #17324d18;min-height:230px}
-.content h3{margin-top:0;color:#1976a8}
-.item{padding:12px;background:#f2f8fb;border-radius:10px;margin:10px 0}
-a{color:#1976a8;font-weight:bold}
-footer{text-align:center;padding:25px;color:#6b7d8d}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial, sans-serif;
+}
+
+body{
+  background:#f4f7fb;
+  color:#172033;
+}
+
+header{
+  background:linear-gradient(135deg,#123b63,#176b87);
+  color:white;
+  padding:35px 20px;
+  text-align:center;
+}
+
+header h1{
+  font-size:42px;
+  margin-bottom:10px;
+}
+
+header p{
+  font-size:18px;
+}
+
+nav{
+  background:white;
+  padding:15px;
+  text-align:center;
+  box-shadow:0 2px 8px #0002;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+
+nav button{
+  border:0;
+  background:#176b87;
+  color:white;
+  padding:10px 16px;
+  margin:5px;
+  border-radius:20px;
+  cursor:pointer;
+}
+
+nav button:hover{
+  background:#123b63;
+}
+
+.container{
+  max-width:1200px;
+  margin:auto;
+  padding:25px;
+}
+
+.search{
+  width:100%;
+  padding:15px;
+  border:2px solid #d5dce5;
+  border-radius:12px;
+  font-size:16px;
+  margin-bottom:25px;
+}
+
+.grades{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:15px;
+}
+
+.grade{
+  background:white;
+  padding:25px;
+  border-radius:18px;
+  text-align:center;
+  box-shadow:0 4px 12px #0001;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.grade:hover{
+  transform:translateY(-5px);
+}
+
+.grade h2{
+  color:#176b87;
+  margin-bottom:10px;
+}
+
+.subjects{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:18px;
+  margin-top:20px;
+}
+
+.subject{
+  background:white;
+  border-radius:18px;
+  padding:20px;
+  box-shadow:0 4px 12px #0001;
+  cursor:pointer;
+}
+
+.subject:hover{
+  transform:translateY(-4px);
+}
+
+.subject h3{
+  color:#176b87;
+  margin-bottom:8px;
+}
+
+.subject p{
+  color:#555;
+}
+
+.lesson{
+  background:white;
+  margin-top:20px;
+  padding:25px;
+  border-radius:18px;
+  box-shadow:0 4px 12px #0001;
+}
+
+.lesson h2{
+  color:#123b63;
+  margin-bottom:15px;
+}
+
+.lesson h3{
+  color:#176b87;
+  margin-top:18px;
+  margin-bottom:8px;
+}
+
+.lesson ul{
+  margin-left:25px;
+  line-height:1.8;
+}
+
+.lesson p{
+  line-height:1.7;
+}
+
+.card-img{
+  width:100%;
+  height:200px;
+  object-fit:cover;
+  border-radius:14px;
+  margin:15px 0;
+}
+
+.task{
+  background:#eef7fa;
+  border-left:5px solid #176b87;
+  padding:18px;
+  margin-top:15px;
+  border-radius:10px;
+}
+
+.video{
+  display:inline-block;
+  background:#d92323;
+  color:white;
+  padding:12px 18px;
+  border-radius:10px;
+  text-decoration:none;
+  margin-top:10px;
+}
+
+.back{
+  background:#555;
+  color:white;
+  border:0;
+  padding:12px 20px;
+  border-radius:10px;
+  cursor:pointer;
+  margin-bottom:15px;
+}
+
+footer{
+  background:#123b63;
+  color:white;
+  text-align:center;
+  padding:30px;
+  margin-top:40px;
+}
+
+.hidden{
+  display:none;
+}
+
+@media(max-width:600px){
+  header h1{
+    font-size:30px;
+  }
+
+  .container{
+    padding:15px;
+  }
+}
 </style>
 </head>
+
 <body>
+
 <header>
-<h1>📚 Fichero Carmeliano</h1>
-<p>Tu espacio escolar para aprender, practicar y descubrir</p>
+  <h1>📚 Fichero Carmelitano</h1>
+  <p>Tu espacio escolar para aprender, practicar y descubrir</p>
 </header>
 
+<nav>
+  <button onclick="inicio()">🏠 Inicio</button>
+  <button onclick="mostrarGrados()">📚 Grados</button>
+</nav>
+
 <div class="container">
-<section id="grades" class="screen active">
-<h2>Selecciona tu grado</h2>
-<div class="grid">
-<button class="card grade" onclick="selectGrade(1)">1.º de Secundaria</button>
-<button class="card grade" onclick="selectGrade(2)">2.º de Secundaria</button>
-<button class="card grade" onclick="selectGrade(3)">3.º de Secundaria</button>
-<button class="card grade" onclick="selectGrade(4)">4.º de Secundaria</button>
-<button class="card grade" onclick="selectGrade(5)">5.º de Secundaria</button>
-</div>
-</section>
 
-<section id="courses" class="screen">
-<button class="back" onclick="show('grades')">← Volver a grados</button>
-<h2 id="gradeTitle"></h2>
-<div id="courseGrid" class="grid"></div>
-</section>
+<input
+  class="search"
+  id="buscador"
+  type="text"
+  placeholder="🔎 Buscar un curso o tema..."
+  onkeyup="buscar()"
+>
 
-<section id="resources" class="screen">
-<button class="back" onclick="show('courses')">← Volver a cursos</button>
-<h2 id="courseTitle"></h2>
-<div class="tabs">
-<button onclick="showTab('info',this)" class="selected">📖 Información</button>
-<button onclick="showTab('tasks',this)">📝 Tareas</button>
-<button onclick="showTab('videos',this)">🎥 Videos</button>
-</div>
-<div id="resourceContent" class="content"></div>
-</section>
+<section id="inicio">
+
+<h2 style="margin-bottom:15px;">Selecciona tu grado</h2>
+
+<div class="grades">
+
+<div class="grade" onclick="mostrarGrado(1)">
+<h2>1.º</h2>
+<p>Primero de Secundaria</p>
 </div>
 
-<footer>Fichero Carmeliano • Plataforma educativa escolar</footer>
+<div class="grade" onclick="mostrarGrado(2)">
+<h2>2.º</h2>
+<p>Segundo de Secundaria</p>
+</div>
+
+<div class="grade" onclick="mostrarGrado(3)">
+<h2>3.º</h2>
+<p>Tercero de Secundaria</p>
+</div>
+
+<div class="grade" onclick="mostrarGrado(4)">
+<h2>4.º</h2>
+<p>Cuarto de Secundaria</p>
+</div>
+
+<div class="grade" onclick="mostrarGrado(5)">
+<h2>5.º</h2>
+<p>Quinto de Secundaria</p>
+</div>
+
+</div>
+
+</section>
+
+<section id="grado" class="hidden"></section>
+
+<section id="curso" class="hidden"></section>
+
+</div>
+
+<footer>
+<p>📚 Fichero Carmelitano</p>
+<p>Plataforma educativa escolar</p>
+</footer>
 
 <script>
-const courses=["Matemática","EPT","Religión","Cc.Ss","CyT","Comunicación","Educación Física","Inglés","Arte y Cultura"];
-let grade=1,currentCourse="";
-const data={
-"Matemática":{info:"Números, álgebra, geometría, estadística y resolución de problemas.",tasks:"Practicar 5 ejercicios relacionados con el tema trabajado en clase.",videos:"https://www.youtube.com/results?search_query=matemática+secundaria"},
-"EPT":{info:"Emprendimiento, creatividad, proyectos y gestión de iniciativas.",tasks:"Elaborar una idea de emprendimiento y describir a quién beneficiaría.",videos:"https://www.youtube.com/results?search_query=EPT+secundaria"},
-"Religión":{info:"Valores, reflexión, convivencia y formación espiritual.",tasks:"Escribir una reflexión sobre un valor importante para la convivencia.",videos:"https://www.youtube.com/results?search_query=educación+religiosa+secundaria"},
-"Cc.Ss":{info:"Historia, geografía, economía y ciudadanía.",tasks:"Investigar un acontecimiento histórico y presentar sus causas y consecuencias.",videos:"https://www.youtube.com/results?search_query=ciencias+sociales+secundaria"},
-"CyT":{info:"Ciencia, tecnología, ambiente e investigación.",tasks:"Realizar una pequeña investigación sobre un fenómeno de tu entorno.",videos:"https://www.youtube.com/results?search_query=ciencia+tecnología+secundaria"},
-"Comunicación":{info:"Comprensión lectora, escritura, literatura y comunicación oral.",tasks:"Leer un texto y elaborar un resumen con sus ideas principales.",videos:"https://www.youtube.com/results?search_query=comunicación+secundaria"},
-"Educación Física":{info:"Actividad física, salud, deporte y hábitos saludables.",tasks:"Realizar una rutina de actividad física y registrar los ejercicios.",videos:"https://www.youtube.com/results?search_query=educación+física+secundaria"},
-"Inglés":{info:"Vocabulario, gramática, comprensión y comunicación en inglés.",tasks:"Aprender 10 palabras nuevas y escribir una oración con cada una.",videos:"https://www.youtube.com/results?search_query=inglés+secundaria"},
-"Arte y Cultura":{info:"Expresión artística, creatividad, cultura y apreciación de obras.",tasks:"Crear una producción artística inspirada en una tradición de tu comunidad.",videos:"https://www.youtube.com/results?search_query=arte+y+cultura+secundaria"}
+
+const cursos = [
+
+{
+nombre:"Matemática",
+icono:"📐",
+imagen:"https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&w=900&q=80",
+temas:[
+"Los números y operaciones",
+"Álgebra y ecuaciones",
+"Geometría y medida",
+"Estadística y probabilidad"
+]
+},
+
+{
+nombre:"EPT",
+icono:"💼",
+imagen:"https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=900&q=80",
+temas:[
+"Emprendimiento",
+"Modelo de negocio",
+"Marketing y publicidad",
+"Presupuesto y costos"
+]
+},
+
+{
+nombre:"CC.SS.",
+icono:"🌎",
+imagen:"https://images.unsplash.com/photo-1461360370896-922624d12b05?auto=format&fit=crop&w=900&q=80",
+temas:[
+"Historia",
+"Geografía",
+"Economía",
+"Sociedad y ciudadanía"
+]
+},
+
+{
+nombre:"Comunicación",
+icono:"📝",
+imagen:"https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=900&q=80",
+temas:[
+"Comprensión lectora",
+"Producción de textos",
+"Literatura",
+"Comunicación oral"
+]
+},
+
+{
+nombre:"Educación Física",
+icono:"⚽",
+imagen:"https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=900&q=80",
+temas:[
+"Condición física",
+"Deportes",
+"Vida saludable",
+"Coordinación y expresión corporal"
+]
+},
+
+{
+nombre:"Inglés",
+icono:"🇬🇧",
+imagen:"https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=900&q=80",
+temas:[
+"Vocabulary",
+"Grammar",
+"Reading",
+"Speaking"
+]
+},
+
+{
+nombre:"DPCC",
+icono:"🤝",
+imagen:"https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=900&q=80",
+temas:[
+"Identidad",
+"Convivencia",
+"Derechos y deberes",
+"Participación ciudadana"
+]
+},
+
+{
+nombre:"Arte y Cultura",
+icono:"🎨",
+imagen:"https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&w=900&q=80",
+temas:[
+"Artes visuales",
+"Música",
+"Teatro",
+"Cultura peruana"
+]
+},
+
+{
+nombre:"Ciencia y Tecnología",
+icono:"🔬",
+imagen:"https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=900&q=80",
+temas:[
+"Materia y energía",
+"Seres vivos",
+"El cuerpo humano",
+"Tecnología y ambiente"
+]
+}
+
+];
+
+
+/* TEMAS POR GRADO */
+
+const temasGrado = {
+
+1:{
+"Matemática":[
+"Números naturales y enteros",
+"Fracciones y decimales",
+"Figuras geométricas"
+],
+"EPT":[
+"¿Qué es un emprendimiento?",
+"Identificación de necesidades",
+"Idea de negocio"
+],
+"CC.SS.":[
+"El origen de las sociedades",
+"Primeras civilizaciones",
+"El espacio geográfico"
+],
+"Comunicación":[
+"El texto y sus tipos",
+"Comprensión lectora",
+"La narración"
+],
+"Educación Física":[
+"Calentamiento",
+"Capacidades físicas",
+"Juegos deportivos"
+],
+"Inglés":[
+"Greetings and introductions",
+"Personal information",
+"Present simple"
+],
+"DPCC":[
+"Mi identidad",
+"Normas de convivencia",
+"Respeto y empatía"
+],
+"Arte y Cultura":[
+"Elementos del arte",
+"Dibujo y pintura",
+"Expresiones culturales"
+],
+"Ciencia y Tecnología":[
+"La materia",
+"Los seres vivos",
+"El ecosistema"
+]
+},
+
+2:{
+"Matemática":[
+"Operaciones con números racionales",
+"Proporcionalidad",
+"Ángulos y polígonos"
+],
+"EPT":[
+"Creatividad e innovación",
+"Cliente y necesidad",
+"Propuesta de valor"
+],
+"CC.SS.":[
+"Civilizaciones antiguas",
+"Edad Media",
+"Geografía del Perú"
+],
+"Comunicación":[
+"Textos expositivos",
+"El párrafo",
+"Literatura peruana"
+],
+"Educación Física":[
+"Resistencia",
+"Fuerza y flexibilidad",
+"Fútbol y vóley"
+],
+"Inglés":[
+"Daily routines",
+"Past simple",
+"Describing people"
+],
+"DPCC":[
+"Autoestima",
+"Resolución de conflictos",
+"Diversidad cultural"
+],
+"Arte y Cultura":[
+"Colores",
+"Música y ritmo",
+"Teatro escolar"
+],
+"Ciencia y Tecnología":[
+"Célula",
+"Sistemas del cuerpo",
+"Materia y energía"
+]
+},
+
+3:{
+"Matemática":[
+"Polinomios",
+"Ecuaciones",
+"Geometría y áreas"
+],
+"EPT":[
+"Modelo de negocio",
+"Marketing",
+"Costos y ganancias"
+],
+"CC.SS.":[
+"Conquista del Perú",
+"Virreinato",
+"Economía y sociedad"
+],
+"Comunicación":[
+"Argumentación",
+"Literatura latinoamericana",
+"Exposición oral"
+],
+"Educación Física":[
+"Entrenamiento físico",
+"Reglas deportivas",
+"Hábitos saludables"
+],
+"Inglés":[
+"Past continuous",
+"Future plans",
+"Comparatives"
+],
+"DPCC":[
+"Derechos humanos",
+"Democracia",
+"Participación ciudadana"
+],
+"Arte y Cultura":[
+"Arte peruano",
+"Fotografía",
+"Expresión artística"
+],
+"Ciencia y Tecnología":[
+"Genética",
+"Reproducción",
+"Contaminación ambiental"
+]
+},
+
+4:{
+"Matemática":[
+"Funciones",
+"Sistemas de ecuaciones",
+"Trigonometría"
+],
+"EPT":[
+"Plan de negocio",
+"Segmentación del mercado",
+"Finanzas básicas"
+],
+"CC.SS.":[
+"Independencia del Perú",
+"República peruana",
+"Procesos económicos"
+],
+"Comunicación":[
+"Ensayo",
+"Literatura peruana",
+"Debate"
+],
+"Educación Física":[
+"Entrenamiento",
+"Deportes colectivos",
+"Salud física"
+],
+"Inglés":[
+"Present perfect",
+"Conditional",
+"Writing"
+],
+"DPCC":[
+"Estado y ciudadanía",
+"Problemas sociales",
+"Responsabilidad ciudadana"
+],
+"Arte y Cultura":[
+"Arte contemporáneo",
+"Patrimonio cultural",
+"Producción artística"
+],
+"Ciencia y Tecnología":[
+"Genética y ADN",
+"Reacciones químicas",
+"Cambio climático"
+]
+},
+
+5:{
+"Matemática":[
+"Funciones y gráficas",
+"Probabilidad",
+"Estadística"
+],
+"EPT":[
+"Plan empresarial",
+"Emprendimiento social",
+"Proyecto de negocio"
+],
+"CC.SS.":[
+"Historia contemporánea",
+"Globalización",
+"Economía del Perú"
+],
+"Comunicación":[
+"Investigación",
+"Argumentación",
+"Producción académica"
+],
+"Educación Física":[
+"Entrenamiento deportivo",
+"Nutrición",
+"Estilo de vida saludable"
+],
+"Inglés":[
+"Advanced grammar",
+"Reading comprehension",
+"Conversation"
+],
+"DPCC":[
+"Democracia y ciudadanía",
+"Ética",
+"Proyecto ciudadano"
+],
+"Arte y Cultura":[
+"Arte moderno",
+"Patrimonio peruano",
+"Proyecto artístico"
+],
+"Ciencia y Tecnología":[
+"Biotecnología",
+"Energías renovables",
+"Investigación científica"
+]
+}
+
 };
 
-function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active')}
-function selectGrade(g){
- grade=g; document.getElementById('gradeTitle').textContent=`${g}.º de Secundaria — Selecciona tu curso`;
- const grid=document.getElementById('courseGrid');grid.innerHTML="";
- courses.forEach(c=>{const b=document.createElement('button');b.className="card course";b.textContent=c;b.onclick=()=>selectCourse(c);grid.appendChild(b)});
- show('courses');
+
+/* MOSTRAR GRADOS */
+
+function inicio(){
+
+document.getElementById("inicio").classList.remove("hidden");
+document.getElementById("grado").classList.add("hidden");
+document.getElementById("curso").classList.add("hidden");
+
+window.scrollTo(0,0);
+
 }
-function selectCourse(c){currentCourse=c;document.getElementById('courseTitle').textContent=`${c} — ${grade}.º de Secundaria`;showTab('info');show('resources')}
-function showTab(tab,btn){
- document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('selected')); if(btn)btn.classList.add('selected');
- const d=data[currentCourse];
- let title="",body="";
- if(tab==="info"){title="📖 Información";body=`<div class="item">${d.info}</div>`}
- if(tab==="tasks"){title="📝 Tareas";body=`<div class="item">${d.tasks}</div><div class="item">💡 Aquí podrás reemplazar esta tarea por las tareas reales de tu profesor.</div>`}
- if(tab==="videos"){title="🎥 Videos educativos";body=`<div class="item">Encuentra videos relacionados con este curso:</div><div class="item"><a href="${d.videos}" target="_blank">▶ Ver videos en YouTube</a></div>`}
- document.getElementById('resourceContent').innerHTML=`<h3>${title}</h3>${body}`;
+
+function mostrarGrados(){
+
+inicio();
+
 }
+
+
+/* MOSTRAR CURSOS DEL GRADO */
+
+function mostrarGrado(grado){
+
+document.getElementById("inicio").classList.add("hidden");
+document.getElementById("curso").classList.add("hidden");
+
+let html=`
+
+<button class="back" onclick="inicio()">← Volver</button>
+
+<h2>📚 ${grado}.º de Secundaria</h2>
+
+<p style="margin-top:8px;">
+Selecciona un curso para comenzar a aprender.
+</p>
+
+<div class="subjects">
+`;
+
+cursos.forEach((curso,index)=>{
+
+html+=`
+
+<div class="subject" onclick="mostrarCurso(${grado},${index})">
+
+<h3>${curso.icono} ${curso.nombre}</h3>
+
+<p>
+Contenido educativo, explicaciones,
+ejercicios, tareas y videos.
+</p>
+
+</div>
+
+`;
+
+});
+
+html+=`</div>`;
+
+document.getElementById("grado").innerHTML=html;
+document.getElementById("grado").classList.remove("hidden");
+
+window.scrollTo(0,0);
+
+}
+
+
+/* MOSTRAR CURSO */
+
+function mostrarCurso(grado,index){
+
+let curso=cursos[index];
+
+let lista=temasGrado[grado][curso.nombre];
+
+let html=`
+
+<button class="back" onclick="mostrarGrado(${grado})">
+← Volver a ${grado}.º
+</button>
+
+<div class="lesson">
+
+<h2>${curso.icono} ${curso.nombre}</h2>
+
+<p>
+<strong>${grado}.º de Secundaria</strong>
+</p>
+
+<img class="card-img" src="${curso.imagen}">
+
+<h3>📖 ¿Qué aprenderás?</h3>
+
+<p>
+En este curso desarrollarás conocimientos,
+habilidades y competencias que podrás aplicar
+en tus estudios y en situaciones de la vida diaria.
+Lee cada tema, observa los ejemplos y realiza
+las actividades propuestas.
+</p>
+
+<h3>📚 Temas principales</h3>
+
+<ul>
+`;
+
+lista.forEach((tema,i)=>{
+
+html+=`<li><strong>${i+1}. ${tema}</strong></li>`;
+
+});
+
+html+=`
+
+</ul>
+
+`;
+
+lista.forEach((tema,i)=>{
+
+html+=`
+
+<div class="task">
+
+<h3>📌 Tema ${i+1}: ${tema}</h3>
+
+<p>
+<strong>Explicación:</strong>
+Este tema es importante porque permite desarrollar
+conocimientos y habilidades para comprender mejor
+el mundo que nos rodea. Estudia los conceptos
+principales, identifica ejemplos y relaciona lo
+aprendido con situaciones de la vida cotidiana.
+</p>
+
+<h3>💡 Para recordar</h3>
+
+<p>
+Lee atentamente la información, identifica las
+ideas principales, toma apuntes y explica con tus
+propias palabras lo que aprendiste.
+</p>
+
+<h3>✏️ Actividad</h3>
+
+<p>
+1. Explica con tus propias palabras qué entendiste
+del tema.<br>
+2. Escribe tres ideas principales.<br>
+3. Busca un ejemplo relacionado con tu comunidad.<br>
+4. Realiza un pequeño resumen.<br>
+5. Comparte tus respuestas con un compañero.
+</p>
+
+<h3>📝 Tarea</h3>
+
+<p>
+Investiga más sobre <strong>${tema}</strong> y prepara
+una presentación de cinco minutos. Incluye definición,
+características, ejemplos e imágenes.
+</p>
+
+</div>
+
+`;
+
+});
+
+html+=`
+
+<h3>🎯 Reto final</h3>
+
+<p>
+Realiza un pequeño proyecto relacionado con
+<strong>${curso.nombre}</strong>. Puedes elaborar
+una exposición, afiche, experimento, texto,
+problema resuelto, dibujo, video o presentación.
+</p>
+
+<h3>🎥 Video educativo</h3>
+
+<p>
+Puedes encontrar explicaciones y clases sobre
+este curso en YouTube:
+</p>
+
+<a class="video"
+href="https://www.youtube.com/results?search_query=${encodeURIComponent(curso.nombre+" "+grado+" secundaria Perú")}"
+target="_blank">
+▶ Ver videos educativos
+</a>
+
+<h3>🔎 Para investigar más</h3>
+
+<p>
+Busca información en libros, bibliotecas digitales,
+materiales escolares y fuentes educativas confiables.
+Compara la información y escribe tus propias conclusiones.
+</p>
+
+</div>
+
+`;
+
+document.getElementById("grado").classList.add("hidden");
+
+document.getElementById("curso").innerHTML=html;
+
+document.getElementById("curso").classList.remove("hidden");
+
+window.scrollTo(0,0);
+
+}
+
+
+/* BUSCADOR */
+
+function buscar(){
+
+let texto=document.getElementById("buscador").value.toLowerCase();
+
+if(texto.length<2){
+inicio();
+return;
+}
+
+let resultados=[];
+
+cursos.forEach((curso,index)=>{
+
+if(curso.nombre.toLowerCase().includes(texto)){
+
+resultados.push({
+curso:curso,
+index:index
+});
+
+}
+
+Object.keys(temasGrado).forEach(grado=>{
+
+let temas=temasGrado[grado][curso.nombre] || [];
+
+temas.forEach(tema=>{
+
+if(tema.toLowerCase().includes(texto)){
+
+resultados.push({
+curso:curso,
+index:index,
+grado:grado,
+tema:tema
+});
+
+}
+
+});
+
+});
+
+});
+
+let html=`
+
+<h2>🔎 Resultados de búsqueda</h2>
+
+<div class="subjects">
+
+`;
+
+if(resultados.length===0){
+
+html+=`
+
+<div class="lesson">
+
+<h3>😕 No encontramos resultados</h3>
+
+<p>
+Prueba buscando otra palabra, por ejemplo:
+<strong>matemática, historia, inglés, genética,
+ecuaciones o democracia.</strong>
+</p>
+
+</div>
+
+`;
+
+}else{
+
+resultados.forEach(r=>{
+
+html+=`
+
+<div class="subject">
+
+<h3>${r.curso.icono} ${r.curso.nombre}</h3>
+
+<p>
+${r.grado ? r.grado+".º de Secundaria — "+r.tema : "Curso disponible"}
+</p>
+
+<button
+style="margin-top:12px;padding:10px;border:0;border-radius:8px;background:#176b87;color:white;cursor:pointer"
+onclick="mostrarCurso(${r.grado || 1},${r.index})">
+
+Ver contenido
+
+</button>
+
+</div>
+
+`;
+
+});
+
+}
+
+html+=`</div>`;
+
+document.getElementById("inicio").classList.add("hidden");
+document.getElementById("grado").classList.add("hidden");
+
+document.getElementById("curso").innerHTML=html;
+document.getElementById("curso").classList.remove("hidden");
+
+}
+
 </script>
+
 </body>
 </html>
