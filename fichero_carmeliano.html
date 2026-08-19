@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fichero Carmeliano</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#17324d}
+header{background:linear-gradient(135deg,#123c69,#1976a8);color:white;text-align:center;padding:35px 18px}
+header h1{margin:0;font-size:42px}header p{margin:10px 0 0;font-size:18px}
+.container{max-width:1050px;margin:auto;padding:25px 18px}
+.screen{display:none}.screen.active{display:block}
+h2{text-align:center;margin:10px 0 25px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:15px}
+.card,button{border:0;border-radius:16px;background:white;box-shadow:0 5px 18px #17324d18;padding:20px;text-align:center;cursor:pointer;color:#17324d;font-size:16px;font-weight:bold}
+.card:hover,button:hover{transform:translateY(-2px);box-shadow:0 8px 22px #17324d25}
+.grade{background:#e7f4fb;border:2px solid #8dcbe7}.course{min-height:100px}
+.back{background:#17324d;color:white;margin-bottom:20px}
+.tabs{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:20px 0}
+.tabs button{padding:12px 18px}.tabs .selected{background:#1976a8;color:white}
+.content{background:white;border-radius:18px;padding:25px;box-shadow:0 5px 18px #17324d18;min-height:230px}
+.content h3{margin-top:0;color:#1976a8}
+.item{padding:12px;background:#f2f8fb;border-radius:10px;margin:10px 0}
+a{color:#1976a8;font-weight:bold}
+footer{text-align:center;padding:25px;color:#6b7d8d}
+</style>
+</head>
+<body>
+<header>
+<h1>📚 Fichero Carmeliano</h1>
+<p>Tu espacio escolar para aprender, practicar y descubrir</p>
+</header>
+
+<div class="container">
+<section id="grades" class="screen active">
+<h2>Selecciona tu grado</h2>
+<div class="grid">
+<button class="card grade" onclick="selectGrade(1)">1.º de Secundaria</button>
+<button class="card grade" onclick="selectGrade(2)">2.º de Secundaria</button>
+<button class="card grade" onclick="selectGrade(3)">3.º de Secundaria</button>
+<button class="card grade" onclick="selectGrade(4)">4.º de Secundaria</button>
+<button class="card grade" onclick="selectGrade(5)">5.º de Secundaria</button>
+</div>
+</section>
+
+<section id="courses" class="screen">
+<button class="back" onclick="show('grades')">← Volver a grados</button>
+<h2 id="gradeTitle"></h2>
+<div id="courseGrid" class="grid"></div>
+</section>
+
+<section id="resources" class="screen">
+<button class="back" onclick="show('courses')">← Volver a cursos</button>
+<h2 id="courseTitle"></h2>
+<div class="tabs">
+<button onclick="showTab('info',this)" class="selected">📖 Información</button>
+<button onclick="showTab('tasks',this)">📝 Tareas</button>
+<button onclick="showTab('videos',this)">🎥 Videos</button>
+</div>
+<div id="resourceContent" class="content"></div>
+</section>
+</div>
+
+<footer>Fichero Carmeliano • Plataforma educativa escolar</footer>
+
+<script>
+const courses=["Matemática","EPT","Religión","Cc.Ss","CyT","Comunicación","Educación Física","Inglés","Arte y Cultura"];
+let grade=1,currentCourse="";
+const data={
+"Matemática":{info:"Números, álgebra, geometría, estadística y resolución de problemas.",tasks:"Practicar 5 ejercicios relacionados con el tema trabajado en clase.",videos:"https://www.youtube.com/results?search_query=matemática+secundaria"},
+"EPT":{info:"Emprendimiento, creatividad, proyectos y gestión de iniciativas.",tasks:"Elaborar una idea de emprendimiento y describir a quién beneficiaría.",videos:"https://www.youtube.com/results?search_query=EPT+secundaria"},
+"Religión":{info:"Valores, reflexión, convivencia y formación espiritual.",tasks:"Escribir una reflexión sobre un valor importante para la convivencia.",videos:"https://www.youtube.com/results?search_query=educación+religiosa+secundaria"},
+"Cc.Ss":{info:"Historia, geografía, economía y ciudadanía.",tasks:"Investigar un acontecimiento histórico y presentar sus causas y consecuencias.",videos:"https://www.youtube.com/results?search_query=ciencias+sociales+secundaria"},
+"CyT":{info:"Ciencia, tecnología, ambiente e investigación.",tasks:"Realizar una pequeña investigación sobre un fenómeno de tu entorno.",videos:"https://www.youtube.com/results?search_query=ciencia+tecnología+secundaria"},
+"Comunicación":{info:"Comprensión lectora, escritura, literatura y comunicación oral.",tasks:"Leer un texto y elaborar un resumen con sus ideas principales.",videos:"https://www.youtube.com/results?search_query=comunicación+secundaria"},
+"Educación Física":{info:"Actividad física, salud, deporte y hábitos saludables.",tasks:"Realizar una rutina de actividad física y registrar los ejercicios.",videos:"https://www.youtube.com/results?search_query=educación+física+secundaria"},
+"Inglés":{info:"Vocabulario, gramática, comprensión y comunicación en inglés.",tasks:"Aprender 10 palabras nuevas y escribir una oración con cada una.",videos:"https://www.youtube.com/results?search_query=inglés+secundaria"},
+"Arte y Cultura":{info:"Expresión artística, creatividad, cultura y apreciación de obras.",tasks:"Crear una producción artística inspirada en una tradición de tu comunidad.",videos:"https://www.youtube.com/results?search_query=arte+y+cultura+secundaria"}
+};
+
+function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active')}
+function selectGrade(g){
+ grade=g; document.getElementById('gradeTitle').textContent=`${g}.º de Secundaria — Selecciona tu curso`;
+ const grid=document.getElementById('courseGrid');grid.innerHTML="";
+ courses.forEach(c=>{const b=document.createElement('button');b.className="card course";b.textContent=c;b.onclick=()=>selectCourse(c);grid.appendChild(b)});
+ show('courses');
+}
+function selectCourse(c){currentCourse=c;document.getElementById('courseTitle').textContent=`${c} — ${grade}.º de Secundaria`;showTab('info');show('resources')}
+function showTab(tab,btn){
+ document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('selected')); if(btn)btn.classList.add('selected');
+ const d=data[currentCourse];
+ let title="",body="";
+ if(tab==="info"){title="📖 Información";body=`<div class="item">${d.info}</div>`}
+ if(tab==="tasks"){title="📝 Tareas";body=`<div class="item">${d.tasks}</div><div class="item">💡 Aquí podrás reemplazar esta tarea por las tareas reales de tu profesor.</div>`}
+ if(tab==="videos"){title="🎥 Videos educativos";body=`<div class="item">Encuentra videos relacionados con este curso:</div><div class="item"><a href="${d.videos}" target="_blank">▶ Ver videos en YouTube</a></div>`}
+ document.getElementById('resourceContent').innerHTML=`<h3>${title}</h3>${body}`;
+}
+</script>
+</body>
+</html>
